@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 
-function App() {
+// Routes
+import * as routes from "routes/routes";
+import CustomRoute from "routes/customRoute";
+
+// Pages
+import Login from "pages/login/Login";
+import Dashboard from "pages/dashboard/Dashboard";
+import Overview from 'pages/overview/Overview';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ position: "relative" }}>
+      <Router >
+        <Switch>
+          <CustomRoute
+            path={routes.LOGIN}
+            exact
+            component={Login}
+          />
+          <CustomRoute
+            // restricted
+            path={routes.ROOT}
+            exact
+            component={Dashboard}
+          />
+          <CustomRoute
+            // restricted
+            path={routes.OVERVIEW}
+            exact
+            component={Overview}
+          />
+          <Route path='/' render={() => "Route Not Found"} />
+        </Switch>
+      </Router>
     </div>
   );
 }
